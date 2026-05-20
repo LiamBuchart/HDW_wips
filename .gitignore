@@ -1,0 +1,2 @@
+# folder to ignore
+CLIM/  # .nc files containing the historical HWD will expose the percentile files
