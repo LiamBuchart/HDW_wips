@@ -2,6 +2,7 @@
 CLIM/  # .nc files containing the historical HWD will expose the percentile files
 OUTPUT/
 FIGURES/
+MAPS/
 
 # files to ignore
 .keys.json
@@ -9,3 +10,4 @@ FIGURES/
 *keys*
 
 *.csv  # do not need query files saved
+*.pyc

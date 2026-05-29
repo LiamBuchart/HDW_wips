@@ -1,0 +1,51 @@
+{
+    "wx_vars": {
+        "2m_temperature": "AirTemp_AGL-2m",
+        "40m_temperature": "AirTemp_AGL-40m",
+        "80m_temperature": "AirTemp_AGL-80m",
+        "120m_temperature": "AirTemp_AGL-120m",
+        "1015_temp": "AirTemp_IsbL-1015",
+        "1000_temp": "AirTemp_IsbL-1000",   
+        "985_temp": "AirTemp_IsbL-0985",
+        "975_temp": "AirTemp_IsbL-0975",
+        "950_temp": "AirTemp_IsbL-0950",
+        "925_temp": "AirTemp_IsbL-0925",
+        "900_temp": "AirTemp_IsbL-0900",
+        "875_temp": "AirTemp_IsbL-0875",
+        "850_temp": "AirTemp_IsbL-0850",
+
+        "2m_humidity": "RelativeHumidity_AGL-2m",
+        "1015_rh": "RelativeHumidity_IsbL-1015",
+        "1000_rh": "RelativeHumidity_IsbL-1000",
+        "985_rh": "RelativeHumidity_IsbL-0985",
+        "975_rh": "RelativeHumidity_IsbL-0975",
+        "950_rh": "RelativeHumidity_IsbL-0950",
+        "925_rh": "RelativeHumidity_IsbL-0925",
+        "900_rh": "RelativeHumidity_IsbL-0900",
+        "875_rh": "RelativeHumidity_IsbL-0875",
+        "850_rh": "RelativeHumidity_IsbL-0850",
+
+        "press": "Pressure_Sfc",
+
+        "10m_spd": "WindSpeed_AGL-10m",
+        "40m_spd": "WindSpeed_AGL-40m",
+        "80m_spd": "WindSpeed_AGL-80m",
+        "120m_spd": "WindSpeed_AGL-120m",
+        "1015_spd": "WindSpeed_IsbL-1015",
+        "1000_spd": "WindSpeed_IsbL-1000",
+        "985_spd": "WindSpeed_IsbL-0985",
+        "975_spd": "WindSpeed_IsbL-0975",
+        "950_spd": "WindSpeed_IsbL-0950",
+        "925_spd": "WindSpeed_IsbL-0925",
+        "900_spd": "WindSpeed_IsbL-0900",
+        "875_spd": "WindSpeed_IsbL-0875",
+        "850_spd": "WindSpeed_IsbL-0850"
+    },
+
+    "configuration": {
+        "resolution": "10km",
+        "grid": "0.09",
+        "note": "this is likely where things blow up if they make datamart changes",
+        "forecast_hours": [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78, 81, 84]
+    }
+}

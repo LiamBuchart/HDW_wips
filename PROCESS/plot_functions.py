@@ -25,7 +25,7 @@ def set_plot(df, start_date, qlat, qlon):
     start_dt = pd.to_datetime(start_date)
     # create a small window around start_date (2 days before and after)
     plot_dates = pd.date_range(start_dt - pd.Timedelta(days=2),
-                               start_dt + pd.Timedelta(days=3), freq="D")
+                               start_dt + pd.Timedelta(days=2), freq="D")
     # map the plot dates to day-of-year to index df columns
     plot_doys = plot_dates.dayofyear
 

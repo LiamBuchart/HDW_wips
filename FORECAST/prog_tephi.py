@@ -70,9 +70,6 @@ df["VP"] = mpcalc.vapor_pressure(df["pres"].to_numpy() * units("hPa"),
 # finally the vapour pressure deficit
 df["VPD"] = df["SVP"] - df["VP"]
 
-# save the dataframe to a csv file
-df.to_csv("vprof_query_output.csv", index=False)
-
 # %%
 # get unique times and wmo values from the dataframe
 unique_times = df["rep_date"].unique()
@@ -124,6 +121,9 @@ for station in unique_wmos:
         hdw_df.loc[len(hdw_df)] = info
 
 print(hdw_df)
+
+# save the dataframe to a csv file
+hdw_df.to_csv("hwd_vprof_query_output.csv", index=False)
 
 # %%
 # interpolte the HDW values using IDW to get a spatial map of the HDW values for each time step
