@@ -25,5 +25,7 @@ root_dir = str(root_dir)
 # get paths for important directories
 clim_dir = root_dir + "/CLIM/"
 forecast_dir = root_dir + "/FORECAST/"
+download_dir = root_dir + "/DOWNLOAD/"
+utils_dir = root_dir + "/UTILS/"
 
 sys.path.insert(0, str(root_dir))

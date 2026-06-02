@@ -110,8 +110,8 @@ print(ws_doy)
 #%%
 # carry out the KDTree interpolation on a yearly file
 # coordinates
-qlat = 53.01
-qlon = -106.26
+qlat = 53.00
+qlon = -103.00
 
 #%%
 # initialize a dataframe to hold the values and dates

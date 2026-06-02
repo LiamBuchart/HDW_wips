@@ -128,8 +128,8 @@ hdw_df.to_csv("hwd_vprof_query_output.csv", index=False)
 # %%
 # interpolte the HDW values using IDW to get a spatial map of the HDW values for each time step
 # use geopandas to help
-q_lat = 53.01  # example latitude for the point of interest
-q_lon = -106.26  # example longitude for the point of interest
+q_lat = 53.00  # example latitude for the point of interest
+q_lon = -103.00  # example longitude for the point of interest
 
 # store the results in a new dataframe
 idw_hdw_df = pd.DataFrame(columns=["rep_date", "HDW"])
