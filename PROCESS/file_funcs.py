@@ -22,3 +22,22 @@ def find_files(directory, substring):
         print(f"Error reading directory '{directory}': {e}")
 
     return matches
+
+
+def match_grib_variable(file_path, file_names, grib_names):
+    """
+    Return the matching GRIB variable name for a file path.
+
+    This looks for any value in file_names that is contained in the file's
+    basename. When a match is found, the function uses the corresponding
+    key to look up the GRIB name in grib_names.
+
+    Returns a tuple of (file_key, grib_name), or (None, None) if no match.
+    """
+    basename = os.path.basename(file_path).lower()
+    for key, file_value in file_names.items():
+        if str(file_value).lower() in basename:
+            return key, grib_names.get(key)
+
+    print(f"Warning: no matching file_names entry found for '{file_path}'")
+    return None, None

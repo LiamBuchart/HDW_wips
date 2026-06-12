@@ -1,6 +1,7 @@
 # required functions to get everything that we need
 import subprocess
 import json
+import uuid
 from datetime import datetime, timedelta
 import cfgrib
 import os
@@ -73,25 +74,32 @@ def set_filenames(model, date, horizon):
     return file_list
 
 def download_data(full_path, file_name, save_dir):
+    os.makedirs(save_dir, exist_ok=True)
+    temp_file_path = os.path.join(save_dir, f"{file_name}.{uuid.uuid4().hex}.part")
+    final_file_path = os.path.join(save_dir, file_name)
+
     try:
         # Send a GET request to download the file
-        response = requests.get(full_path, stream=True)
-        response.raise_for_status()  # Check for HTTP request errors
+        with requests.get(full_path, stream=True) as response:
+            response.raise_for_status()  # Check for HTTP request errors
 
-        # Write the content to a local file
-        with open(file_name, "wb") as file:
-            for chunk in response.iter_content(chunk_size=8192):
-                file.write(chunk)
+            # Write the content to a temporary file in the save directory
+            with open(temp_file_path, "wb") as file:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        file.write(chunk)
 
-        print(f"File downloaded successfully: {file_name}, moving to /temp/ ...")    
-
-        # clear .grib2 files from the temp directory if there is one 
-        if os.path.exists(save_dir):
-            # move the file to the temp directory 
-            shutil.move(file_name, os.path.join(save_dir, file_name))
+        os.replace(temp_file_path, final_file_path)
+        print(f"File downloaded successfully: {file_name}, saved to {save_dir}")
 
     except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
+        print(f"An error occurred downloading {file_name}: {e}")
+        if os.path.exists(temp_file_path):
+            os.remove(temp_file_path)
+    except PermissionError as e:
+        print(f"PermissionError saving {file_name}: {e}")
+        #if os.path.exists(temp_file_path):
+            #os.remove(temp_file_path)
 
 def clean_avail_dir(temp_dir, dir):
     # clear .grib2 files from the temp directory if there is one 
@@ -108,9 +116,12 @@ def clean_avail_dir(temp_dir, dir):
                 os.remove(file_path)
     print(f"Cleaned {dir}")
 
-    # move all files from the temp_dir to the directory
+    # move all completed files from the temp_dir to the directory
     if os.path.exists(temp_dir):
         for file in os.listdir(temp_dir):
+            if ".part" in file:
+                print(f"Skipping partial file: {file}")
+                continue
             file_path = os.path.join(temp_dir, file)
             shutil.move(file_path, os.path.join(dir, file))
     print(f"Moved files from {temp_dir} to {dir}")

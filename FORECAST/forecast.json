@@ -1,6 +1,6 @@
 {
     "RDPS": {
         "horizon": [0, 12, 6],
-        "note": "Treat these as inputs to a np.arange function call"
+        "note": "Treat these as inputs to a np.arange function call [starts, end+freq, freq)"
     }
 }

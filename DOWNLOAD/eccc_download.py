@@ -29,6 +29,7 @@ from shapely.geometry import Point
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from file_funcs import set_filenames, download_data, clean_avail_dir
+from context import forecast_dir
 
 ##### User Input #####
 date_base = datetime.today()
@@ -37,7 +38,12 @@ print(date)
 ##### END ######
 
 save_dir = "./temp"
-fcst_horizon = np.arange(0, 12, 6)  #0, 78, 6)  # every 6h from 0 to 72h forecast
+with open(f"{forecast_dir}/forecast.json", 'r') as f:
+    forecast_info = json.load(f)
+
+rdps_horizon_inits = forecast_info["RDPS"]["horizon"]
+fcst_horizon = np.arange(rdps_horizon_inits[0], rdps_horizon_inits[1], rdps_horizon_inits[2])
+#fcst_horizon = np.arange(0, 30, 6)  #0, 78, 6)  # every 6h from 0 to 72h forecast
 
 #%%
 with open('rdps_vars.json', 'r') as f:
@@ -52,6 +58,9 @@ print(future)
 
 # %%
 print(f"The current time is {datetime.now()}. Starting downloads...")
+# Remove duplicate file names before parallel download to avoid collisions
+rdps_files = rdps_files.drop_duplicates(subset=["file"])
+
 # parallization cause this thang is slooow
 with ThreadPoolExecutor(max_workers=10) as executor:
     futures = [executor.submit(download_data, row["full_path"], row["file"], save_dir) for index, row in rdps_files.iterrows()]
